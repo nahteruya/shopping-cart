@@ -1,8 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useContext } from "react";
-import { CartContext } from "../_contexts/CartProvider";
-import { Product } from "@prisma/client";
+import { CartContext, Product } from "../_contexts/CartProvider";
 import { calculateProductPrice, priceFormatter } from "../_helpers/price";
 
 interface CardProps {
@@ -22,13 +21,14 @@ export default function Card({ product }: CardProps) {
 
   return (
     <div className="flex h-96 w-full flex-col overflow-hidden rounded-lg shadow">
-      <div className="w-full p-5">
+      <div className="flex w-full justify-center p-5">
         <Image
           src={product.imageUrl}
           alt={product.name}
           width={236}
           height={160}
           className="object-contain"
+          priority
         />
       </div>
       <div className="h-[1px] w-full bg-gray-300"></div>

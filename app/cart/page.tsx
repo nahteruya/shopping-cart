@@ -8,7 +8,7 @@ export default function Cart() {
   const { cartList, totalPriceCart, removeItemFromCart } =
     useContext(CartContext);
 
-  function handleRemoveItem(itemId: string) {
+  function handleRemoveItem(itemId: number) {
     removeItemFromCart(itemId);
   }
 
@@ -20,15 +20,18 @@ export default function Cart() {
           <thead>
             <tr className="border-b-[1px] border-solid border-b-gray-300">
               <th className="w-auto p-4 text-left">Product</th>
-              <th className="w-40 p-4 text-center">Quantity</th>
-              <th colSpan={2} className="w-40 p-4 text-center">
+              <th className="w-35 p-4 text-center sm:w-40">Quantity</th>
+              <th colSpan={2} className="w-35 p-4 text-center sm:w-40">
                 Price
               </th>
             </tr>
           </thead>
           <tbody>
             {cartList.map((item) => (
-              <tr className="border-b-[1px] border-solid border-b-gray-300">
+              <tr
+                key={item.product.id}
+                className="border-b-[1px] border-solid border-b-gray-300"
+              >
                 <td className="p-4">{item.product.name}</td>
                 <td className="p-4 text-center">{item.quantity}</td>
                 <td className="p-4 text-center">
@@ -43,11 +46,15 @@ export default function Cart() {
             ))}
           </tbody>
         </table>
-        <div className="flex justify-end p-4">
-          <span>
-            Total: <strong>{priceFormatter(totalPriceCart)}</strong>
-          </span>
-        </div>
+        {cartList.length === 0 ? (
+          <div className="flex justify-center p-4">Your cart is empty</div>
+        ) : (
+          <div className="flex justify-end p-4">
+            <span>
+              Total: <strong>{priceFormatter(totalPriceCart)}</strong>
+            </span>
+          </div>
+        )}
       </div>
     </main>
   );
