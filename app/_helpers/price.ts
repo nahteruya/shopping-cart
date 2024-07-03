@@ -1,4 +1,4 @@
-import { Product } from "@prisma/client";
+import { Product } from "../_contexts/CartProvider";
 
 export function priceFormatter(value: number): string {
   return new Intl.NumberFormat("en-US", {
