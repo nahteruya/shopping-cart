@@ -1,6 +1,17 @@
-import Header from "../components/Header";
+"use client";
+import { useContext } from "react";
+import Header from "../_components/Header";
+import { CartContext } from "../_contexts/CartProvider";
+import { calculateProductPrice, priceFormatter } from "../_helpers/price";
 
 export default function Cart() {
+  const { cartList, totalPriceCart, removeItemFromCart } =
+    useContext(CartContext);
+
+  function handleRemoveItem(itemId: string) {
+    removeItemFromCart(itemId);
+  }
+
   return (
     <main>
       <Header />
@@ -16,23 +27,25 @@ export default function Cart() {
             </tr>
           </thead>
           <tbody>
-            <tr className="border-b-[1px] border-solid border-b-gray-300">
-              <td className="p-4">Notebook 1</td>
-              <td className="p-4 text-center">1</td>
-              <td className="p-4 text-center">$4000</td>
-              <td className="text-pink p-4 text-right">X</td>
-            </tr>
-            <tr className="border-b-[1px] border-solid border-b-gray-300">
-              <td className="p-4">Notebook 2</td>
-              <td className="p-4 text-center">1</td>
-              <td className="p-4 text-center">$4000</td>
-              <td className="text-pink p-4 text-right">X</td>
-            </tr>
+            {cartList.map((item) => (
+              <tr className="border-b-[1px] border-solid border-b-gray-300">
+                <td className="p-4">{item.product.name}</td>
+                <td className="p-4 text-center">{item.quantity}</td>
+                <td className="p-4 text-center">
+                  {priceFormatter(calculateProductPrice(item.product))}
+                </td>
+                <td className="text-pink p-4 text-right">
+                  <button onClick={() => handleRemoveItem(item.product.id)}>
+                    X
+                  </button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
         <div className="flex justify-end p-4">
           <span>
-            Total: <strong>$8000.00</strong>
+            Total: <strong>{priceFormatter(totalPriceCart)}</strong>
           </span>
         </div>
       </div>

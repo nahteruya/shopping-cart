@@ -1,0 +1,67 @@
+"use client";
+import Image from "next/image";
+import { useContext } from "react";
+import { CartContext } from "../_contexts/CartProvider";
+import { Product } from "@prisma/client";
+import { calculateProductPrice, priceFormatter } from "../_helpers/price";
+
+interface CardProps {
+  product: Product;
+}
+
+export default function Card({ product }: CardProps) {
+  const { cartList, addItemToCart } = useContext(CartContext);
+
+  function handleAddToCart() {
+    const newItem = {
+      product: product,
+      quantity: 1,
+    };
+    addItemToCart(newItem);
+  }
+
+  return (
+    <div className="flex h-96 w-full flex-col overflow-hidden rounded-lg shadow">
+      <div className="w-full p-5">
+        <Image
+          src={product.imageUrl}
+          alt={product.name}
+          width={236}
+          height={160}
+          className="object-contain"
+        />
+      </div>
+      <div className="h-[1px] w-full bg-gray-300"></div>
+      <div className="flex w-full flex-col gap-2 p-4">
+        <h3 className="text-pink text-center text-lg font-bold">
+          {product.name}
+        </h3>
+        <p className="text-xs">{product.description}</p>
+        <div className="flex items-center justify-between">
+          <div className="flex justify-start">
+            <strong className="text-sm font-bold">
+              {priceFormatter(calculateProductPrice(product))}
+            </strong>
+            {product.discountPercentage && (
+              <span className="text-[10px] line-through">
+                {priceFormatter(product.price)}
+              </span>
+            )}
+          </div>
+          <div className="flex flex-col">
+            {cartList.some((item) => item.product.id === product.id) ? (
+              <span className="text-green text-xs">in cart</span>
+            ) : (
+              <button
+                onClick={handleAddToCart}
+                className="bg-pink rounded p-1 text-xs font-semibold text-gray-100"
+              >
+                add to cart +
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
