@@ -1,8 +1,16 @@
 "use client";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { ReactNode, createContext, useState } from "react";
-import { Product } from "@prisma/client";
 import { calculateProductPrice } from "../_helpers/price";
+
+export interface Product {
+  id: number;
+  name: string;
+  description: string;
+  imageUrl: string;
+  price: number;
+  discountPercentage?: number;
+}
 
 interface Item {
   product: Product;
@@ -13,7 +21,7 @@ interface CartContextType {
   cartList: Item[];
   totalPriceCart: number;
   addItemToCart: (newItem: Item) => void;
-  removeItemFromCart: (itemId: string) => void;
+  removeItemFromCart: (itemId: number) => void;
 }
 
 interface CartContextProviderProps {
@@ -23,13 +31,25 @@ interface CartContextProviderProps {
 export const CartContext = createContext({} as CartContextType);
 
 export const CartContextProvider = ({ children }: CartContextProviderProps) => {
-  const [cartList, setCartList] = useState<Item[]>([]);
+  const [cartList, setCartList] = useState<Item[]>(() => {
+    const storedCart = window.localStorage.getItem(
+      "@shopping-cart:cart-list-1.0.0",
+    );
+    return storedCart ? JSON.parse(storedCart) : [];
+  });
+
+  useEffect(() => {
+    window.localStorage.setItem(
+      "@shopping-cart:cart-list-1.0.0",
+      JSON.stringify(cartList),
+    );
+  }, [cartList]);
 
   function addItemToCart(newItem: Item) {
     setCartList((prevCartList) => [...prevCartList, newItem]);
   }
 
-  function removeItemFromCart(itemId: string) {
+  function removeItemFromCart(itemId: number) {
     setCartList((prevCartList) =>
       prevCartList.filter((item) => item.product.id !== itemId),
     );
