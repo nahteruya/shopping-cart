@@ -25,19 +25,25 @@ JavaScript, TypeScript, ReactJS, NextJS, TailwindCSS, Prettier, Phosphor Icons
 
 Abra o seu terminal e rode o comando abaixo para clonar o repositório:
 
-`git clone https://github.com/nahteruya/shopping-cart.git`
+```bash
+git clone https://github.com/nahteruya/shopping-cart.git
+```
 
 Instale as dependências do projeto com o seguinte comando:
 
-`npm install
-#ou, se tiver utilizando o gerenciador de pacotes yarn 
-yarn install`
+```bash
+npm install
+#ou, se tiver utilizando o gerenciador de pacotes yarn
+yarn install
+```
 
 Em seguida, inicialize o projeto rodando o comando:
 
-`npm run dev
+```bash
+npm run dev
 #ou, se tiver utilizando o gerenciador de pacotes yarn
-yarn run dev`
+yarn run dev
+```
 
 Com isso, o projeto deve abrir na URL http://localhost:3000
 
