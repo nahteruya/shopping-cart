@@ -1,4 +1,4 @@
-import { Product } from "../_contexts/CartProvider";
+import { Item, Product } from "../_contexts/CartProvider";
 
 export function priceFormatter(value: number): string {
   return new Intl.NumberFormat("en-US", {
@@ -8,6 +8,17 @@ export function priceFormatter(value: number): string {
   })
     .format(value)
     .replace(",", "");
+}
+
+export function calculateProductTotalPrice(item: Item): number {
+  if (!item.product.discountPercentage) {
+    return item.product.price * item.quantity;
+  }
+  return (
+    item.product.price *
+    (1 - item.product.discountPercentage / 100) *
+    item.quantity
+  );
 }
 
 export function calculateProductPrice(product: Product): number {

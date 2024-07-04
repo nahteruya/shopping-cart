@@ -5,8 +5,12 @@ import Header from "../_components/Header";
 import { useContext, useMemo } from "react";
 import { CartContext } from "../_contexts/CartProvider";
 
-import { calculateProductPrice, priceFormatter } from "../_utils/price";
-import QuantityInput from "../_components/Counter";
+import {
+  calculateProductPrice,
+  calculateProductTotalPrice,
+  priceFormatter,
+} from "../_utils/price";
+import Counter from "../_components/Counter";
 
 export default function Cart() {
   const {
@@ -50,7 +54,7 @@ export default function Cart() {
               >
                 <td className="p-4">{item.product.name}</td>
                 <td className="flex justify-center p-4">
-                  <QuantityInput
+                  <Counter
                     quantity={item.quantity}
                     decreaseQuantity={() =>
                       decreaseProductQuantity(item.product.id)
@@ -61,7 +65,7 @@ export default function Cart() {
                   />
                 </td>
                 <td className="p-4 text-center">
-                  {priceFormatter(calculateProductPrice(item.product))}
+                  {priceFormatter(calculateProductTotalPrice(item))}
                 </td>
                 <td className="p-4 text-right text-pink">
                   <button onClick={() => handleRemoveItem(item.product.id)}>

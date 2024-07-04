@@ -9,7 +9,6 @@ import React, {
   useMemo,
 } from "react";
 
-import { calculateProductPrice } from "../_utils/price";
 import {
   addItemToCartAction,
   cartReducer,
@@ -89,14 +88,6 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
   function increaseProductQuantity(itemId: number) {
     dispatch(increaseProductQuantityAction(itemId));
   }
-
-  /* const totalPriceCart = useMemo(() => {
-    return cartList.reduce(
-      (acc, item) =>
-        (acc += calculateProductPrice(item.product) * item.quantity),
-      0,
-    );
-  }, [cartList]); */
 
   return (
     <CartContext.Provider
