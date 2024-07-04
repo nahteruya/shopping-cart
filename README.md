@@ -29,6 +29,12 @@ Abra o seu terminal e rode o comando abaixo para clonar o repositório:
 git clone https://github.com/nahteruya/shopping-cart.git
 ```
 
+Acesse o diretório criado, por meio do comando:
+
+```bash
+cd shopping-cart
+```
+
 Instale as dependências do projeto com o seguinte comando:
 
 ```bash
