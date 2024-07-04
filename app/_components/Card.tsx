@@ -6,6 +6,7 @@ import { useContext } from "react";
 import { CartContext, Product } from "../_contexts/CartProvider";
 
 import { calculateProductPrice, priceFormatter } from "../_utils/price";
+import { useRouter } from "next/navigation";
 
 interface CardProps {
   product: Product;
@@ -13,6 +14,7 @@ interface CardProps {
 
 export default function Card({ product }: CardProps) {
   const { cartList, addItemToCart } = useContext(CartContext);
+  const router = useRouter();
 
   function handleAddToCart() {
     const newItem = {
@@ -20,6 +22,7 @@ export default function Card({ product }: CardProps) {
       quantity: 1,
     };
     addItemToCart(newItem);
+    router.push("/cart");
   }
 
   return (
@@ -36,7 +39,7 @@ export default function Card({ product }: CardProps) {
       </div>
       <div className="h-[1px] w-full bg-gray-300"></div>
       <div className="flex w-full flex-col gap-2 p-4">
-        <h3 className="text-pink text-center text-lg font-bold">
+        <h3 className="text-center text-lg font-bold text-pink">
           {product.name}
         </h3>
         <p className="text-xs">{product.description}</p>
@@ -53,11 +56,11 @@ export default function Card({ product }: CardProps) {
           </div>
           <div className="flex flex-col">
             {cartList.some((item) => item.product.id === product.id) ? (
-              <span className="text-green text-xs">in cart</span>
+              <span className="text-xs text-green">in cart</span>
             ) : (
               <button
                 onClick={handleAddToCart}
-                className="bg-pink rounded p-1 text-xs font-semibold text-gray-100"
+                className="rounded bg-pink p-1 text-xs font-semibold text-gray-100"
               >
                 add to cart +
               </button>
