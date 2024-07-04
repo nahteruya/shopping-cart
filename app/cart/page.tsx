@@ -1,8 +1,11 @@
 "use client";
-import { useContext } from "react";
+
 import Header from "../_components/Header";
+
+import { useContext } from "react";
 import { CartContext } from "../_contexts/CartProvider";
-import { calculateProductPrice, priceFormatter } from "../_helpers/price";
+
+import { calculateProductPrice, priceFormatter } from "../_utils/price";
 
 export default function Cart() {
   const { cartList, totalPriceCart, removeItemFromCart } =

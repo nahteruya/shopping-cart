@@ -1,8 +1,11 @@
 "use client";
+
 import Image from "next/image";
+
 import { useContext } from "react";
 import { CartContext, Product } from "../_contexts/CartProvider";
-import { calculateProductPrice, priceFormatter } from "../_helpers/price";
+
+import { calculateProductPrice, priceFormatter } from "../_utils/price";
 
 interface CardProps {
   product: Product;

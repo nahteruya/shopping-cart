@@ -1,7 +1,15 @@
 "use client";
-import React, { useEffect, useMemo } from "react";
-import { ReactNode, createContext, useState } from "react";
-import { calculateProductPrice } from "../_helpers/price";
+
+import React, {
+  ReactNode,
+  useState,
+  useEffect,
+  createContext,
+  useReducer,
+  useMemo,
+} from "react";
+
+import { calculateProductPrice } from "../_utils/price";
 
 export interface Product {
   id: number;
@@ -12,7 +20,7 @@ export interface Product {
   discountPercentage?: number;
 }
 
-interface Item {
+export interface Item {
   product: Product;
   quantity: number;
 }

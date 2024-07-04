@@ -1,5 +1,6 @@
 import Card from "./_components/Card";
 import Header from "./_components/Header";
+
 import { Product } from "./_contexts/CartProvider";
 
 export default async function Home() {

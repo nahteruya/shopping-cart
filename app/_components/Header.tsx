@@ -1,8 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { ShoppingCart } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
+
+import { ShoppingCart } from "@phosphor-icons/react/dist/ssr";
+
 import { useContext } from "react";
 import { CartContext } from "../_contexts/CartProvider";
 
