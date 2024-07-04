@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+### Desafio técnico para vaga de Desenvolvedor Front-End Júnior.
 
-## Getting Started
+O desafio consiste em criar uma página Home e uma página de Carrinho,
+replicando toda a interface de exemplo de forma responsiva e o mais
+próxima possível da original, sem utilizar nenhum protótipo. Além disso, é
+necessário implementar corretamente o fluxo do carrinho.
 
-First, run the development server:
+**Requisitos da Aplicação:**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- NextJS: A aplicação deve ser construída utilizando NextJS.
+- Tailwind CSS: Utilize Tailwind CSS para a estilização dos componentes.
+- Requisição de Produtos: A página Home deve buscar os produtos fictícios através
+  de uma requisição feita pelo lado do servidor.
+- Cache: O cache dos produtos da Home deve ter uma duração de 2 minutos.
+- Persistência do Carrinho: O estado do carrinho deve ser persistido no local
+  storage, para que o usuário não perca seu carrinho ao recarregar a página.
+- Experiência do Usuário: A experiência do usuário deve ser colocada em primeiro
+  lugar.
+
+#### Tecnologias utiilizadas
+
+JavaScript, TypeScript, ReactJS, NextJS, TailwindCSS, Prettier, Phosphor Icons
+
+#### Inicializando projeto
+
+Abra o seu terminal e rode o comando abaixo para clonar o repositório:
+
+`git clone https://github.com/nahteruya/shopping-cart.git`
+
+Instale as dependências do projeto com o seguinte comando:
+
+`npm install
+#ou, se tiver utilizando o gerenciador de pacotes yarn 
+yarn install`
+
+Em seguida, inicialize o projeto rodando o comando:
+
+`npm run dev
+#ou, se tiver utilizando o gerenciador de pacotes yarn
+yarn run dev`
+
+Com isso, o projeto deve abrir na URL http://localhost:3000
+
+#### Organização das pastas
+
+A pasta `app` contém os arquivos mais importantes do projeto. Nela, estão contidas as pastas:
+
+- `_components`: contém os arquivos com os componentes `Header` e `Card` (card dos produtos utilizado na Home)
+- `_contexts`: contem o arquivo de `CartProvider` que cria o contexto e possibilita o compartilhamento de informações e funções relacionadas aos itens do carrinho.
+- `_utils`: contem o arquivo `price` que exporta funções para formatação de preço e cálculo de produtos com e sem desconto.
+- `api`: contem a rota `products` onde é configurado a base de dados de produtos fictícios e disponibilizados no endpoint http://localhost:3000/api/products.
+- `cart`: contem o arquivo da página de carrinho.
+
+```shell
+tree
+├───app
+│   ├───_components
+│   ├───_contexts
+│   └───_utils
+│   ├───api
+│   │   └───products
+│   ├───cart
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
