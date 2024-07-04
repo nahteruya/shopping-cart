@@ -57,9 +57,10 @@ Com isso, o projeto deve abrir na URL http://localhost:3000
 
 A pasta `app` contém os arquivos mais importantes do projeto. Nela, estão contidas as pastas:
 
-- `_components`: contém os arquivos com os componentes `Header` e `Card` (card dos produtos utilizado na Home)
+- `_components`: contém os arquivos com os componentes `Header`, `Card` (card dos produtos utilizado na Home) e `Counter` (contador para incrementar ou decrementar a quantidade de produtos)
 - `_contexts`: contem o arquivo de `CartProvider` que cria o contexto e possibilita o compartilhamento de informações e funções relacionadas aos itens do carrinho.
-- `_utils`: contem o arquivo `price` que exporta funções para formatação de preço e cálculo de produtos com e sem desconto.
+- `_reducer`: contem o arquivo `cart` que faz o mapeamento de ações e a declaração das funções utilizadas para no reducer para melhor manipulação dos itens no carrinho.
+- `_utils`: contem o arquivo `price` que exporta funções para formatação de preço e cálculo de preço dos produtos com e sem desconto.
 - `api`: contem a rota `products` onde é configurado a base de dados de produtos fictícios e disponibilizados no endpoint http://localhost:3000/api/products.
 - `cart`: contem o arquivo da página de carrinho.
 
@@ -68,6 +69,7 @@ tree
 ├───app
 │   ├───_components
 │   ├───_contexts
+│   ├───_reducers
 │   └───_utils
 │   ├───api
 │   │   └───products
