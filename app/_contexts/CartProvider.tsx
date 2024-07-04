@@ -10,6 +10,13 @@ import React, {
 } from "react";
 
 import { calculateProductPrice } from "../_utils/price";
+import {
+  addItemToCartAction,
+  cartReducer,
+  decreaseProductQuantityAction,
+  increaseProductQuantityAction,
+  removeItemFromCartAction,
+} from "../_reducers/cart";
 
 export interface Product {
   id: number;
@@ -27,9 +34,10 @@ export interface Item {
 
 interface CartContextType {
   cartList: Item[];
-  totalPriceCart: number;
   addItemToCart: (newItem: Item) => void;
   removeItemFromCart: (itemId: number) => void;
+  decreaseProductQuantity: (itemId: number) => void;
+  increaseProductQuantity: (itemId: number) => void;
 }
 
 interface CartContextProviderProps {
@@ -39,41 +47,66 @@ interface CartContextProviderProps {
 export const CartContext = createContext({} as CartContextType);
 
 export const CartContextProvider = ({ children }: CartContextProviderProps) => {
-  const [cartList, setCartList] = useState<Item[]>(() => {
-    const storedCart = window.localStorage.getItem(
-      "@shopping-cart:cart-list-1.0.0",
-    );
-    return storedCart ? JSON.parse(storedCart) : [];
-  });
+  const [cartListState, dispatch] = useReducer(
+    cartReducer,
+    { cartList: [] },
+    (cartListState) => {
+      const storedStateAsJSON = localStorage.getItem(
+        "@shopping-cart:cart-list-1.0.0",
+      );
+
+      if (storedStateAsJSON) {
+        return {
+          cartList: JSON.parse(storedStateAsJSON),
+        };
+      }
+
+      return cartListState;
+    },
+  );
+
+  const { cartList } = cartListState;
 
   useEffect(() => {
-    window.localStorage.setItem(
+    localStorage.setItem(
       "@shopping-cart:cart-list-1.0.0",
       JSON.stringify(cartList),
     );
   }, [cartList]);
 
   function addItemToCart(newItem: Item) {
-    setCartList((prevCartList) => [...prevCartList, newItem]);
+    dispatch(addItemToCartAction(newItem));
   }
 
   function removeItemFromCart(itemId: number) {
-    setCartList((prevCartList) =>
-      prevCartList.filter((item) => item.product.id !== itemId),
-    );
+    dispatch(removeItemFromCartAction(itemId));
   }
 
-  const totalPriceCart = useMemo(() => {
+  function decreaseProductQuantity(itemId: number) {
+    dispatch(decreaseProductQuantityAction(itemId));
+  }
+
+  function increaseProductQuantity(itemId: number) {
+    dispatch(increaseProductQuantityAction(itemId));
+  }
+
+  /* const totalPriceCart = useMemo(() => {
     return cartList.reduce(
       (acc, item) =>
         (acc += calculateProductPrice(item.product) * item.quantity),
       0,
     );
-  }, [cartList]);
+  }, [cartList]); */
 
   return (
     <CartContext.Provider
-      value={{ cartList, totalPriceCart, addItemToCart, removeItemFromCart }}
+      value={{
+        cartList,
+        addItemToCart,
+        removeItemFromCart,
+        decreaseProductQuantity,
+        increaseProductQuantity,
+      }}
     >
       {children}
     </CartContext.Provider>
