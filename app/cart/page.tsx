@@ -2,18 +2,31 @@
 
 import Header from "../_components/Header";
 
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import { CartContext } from "../_contexts/CartProvider";
 
 import { calculateProductPrice, priceFormatter } from "../_utils/price";
+import QuantityInput from "../_components/Counter";
 
 export default function Cart() {
-  const { cartList, totalPriceCart, removeItemFromCart } =
-    useContext(CartContext);
+  const {
+    cartList,
+    removeItemFromCart,
+    decreaseProductQuantity,
+    increaseProductQuantity,
+  } = useContext(CartContext);
 
   function handleRemoveItem(itemId: number) {
     removeItemFromCart(itemId);
   }
+
+  const totalPriceCart = useMemo(() => {
+    return cartList.reduce(
+      (acc, item) =>
+        (acc += calculateProductPrice(item.product) * item.quantity),
+      0,
+    );
+  }, [cartList]);
 
   return (
     <main>
@@ -36,11 +49,21 @@ export default function Cart() {
                 className="border-b-[1px] border-solid border-b-gray-300"
               >
                 <td className="p-4">{item.product.name}</td>
-                <td className="p-4 text-center">{item.quantity}</td>
+                <td className="flex justify-center p-4">
+                  <QuantityInput
+                    quantity={item.quantity}
+                    decreaseQuantity={() =>
+                      decreaseProductQuantity(item.product.id)
+                    }
+                    increaseQuantity={() =>
+                      increaseProductQuantity(item.product.id)
+                    }
+                  />
+                </td>
                 <td className="p-4 text-center">
                   {priceFormatter(calculateProductPrice(item.product))}
                 </td>
-                <td className="text-pink p-4 text-right">
+                <td className="p-4 text-right text-pink">
                   <button onClick={() => handleRemoveItem(item.product.id)}>
                     X
                   </button>
