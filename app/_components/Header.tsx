@@ -16,7 +16,7 @@ export default function Header() {
       <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4">
         <Link href="/" className="flex items-center gap-2">
           <Image src="/Logo.png" alt="" width={48} height={48} />
-          <h1 className="text-pink text-lg font-semibold">Dev Store</h1>
+          <h1 className="text-lg font-semibold text-pink">Dev Store</h1>
         </Link>
         <Link href="/cart" className="relative h-10 w-11 cursor-pointer">
           <ShoppingCart size={32} className="absolute bottom-0 left-0" />
